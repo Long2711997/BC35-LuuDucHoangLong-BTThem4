@@ -1,35 +1,46 @@
 var next_btn = document.getElementById('next');
 next_btn.onclick = function () {
+    // Get data
     var date = document.getElementById('date').value*1;
     var month = document.getElementById('month').value*1;
     var year = document.getElementById('year').value*1;
     var error = document.getElementById('result1').innerHTML = 'Ngay khong xac dinh';
     
+    // Handle data
+        // Validate invalid date, month, year
     if ( date <= 0 || month <= 0 || year <= 0 || month > 12){
         error;
+        // Validate days of months which have 31 days
     } else if ( (month == 1 || month == 3 || month == 5 || month ==7 || month == 8 || month == 10 || month == 12) && date > 31){
         error;
+        // Validate days of month which have 30 days
     } else if ( (month == 4 || month == 6 || month == 9 || month == 11) && date > 30 ) {
         error;
+        // Validate true value of months which have 31 days -> extend to next month
     } else if ( (month == 1 || month == 3 || month == 5 || month ==7 || month == 8 || month == 10) && date == 31 ) {
         date = 1;
         month += 1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate true value of months which have 30 days -> extend to next month
     } else if ( (month == 4 || month == 6 || month == 9 || month == 11) && date == 30 ) {
         date = 1;
         month += 1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate Dec 31th to extend to next year
     } else if ( month == 12 && date == 31 ) {
         date = 1;
         month = 1;
         year +=1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate days of Feb to extend to next month
     } else if ( month == 2 && date == 28) {
         date = 1;
         month = 3;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate invalid date of Feb
     } else if ( month == 2 && date > 28 ){
         error;
+        // Other days -> true value
     } else {
         date += 1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
@@ -39,36 +50,47 @@ next_btn.onclick = function () {
 
 var prev_btn = document.getElementById('prev');
 prev_btn.onclick = function () {
+    // Get data
     var date = document.getElementById('date').value*1;
     var month = document.getElementById('month').value*1;
     var year = document.getElementById('year').value*1;
     var error = document.getElementById('result1').innerHTML = 'Ngay khong xac dinh';
     
+     // Handle data
+        // Validate invalid date, month, year
     if ( date <= 0 || month <= 0 || year <= 0 || month > 12){
         error;
+        // Validate days of months which have 31 days
     } else if ( (month == 1 || month == 3 || month == 5 || month ==7 || month == 8 || month == 10 || month == 12) && date > 31){
         error;
+        // Validate days of months which have 30 days
     } else if ( (month == 4 || month == 6 || month == 9 || month == 11) && date > 30 ) {
         error;
+          // Validate true value of months which have 31 days -> back to previous month 
     } else if ( (month == 1 || month == 3 || month == 5 || month ==7 || month == 8 || month == 10) && date == 1 ) {
         date = 31;
         month -= 1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+         // Validate true value of months which have 30 days -> back to previous month
     } else if ( (month == 4 || month == 6 || month == 9 || month == 11) && date == 1 ) {
         date = 30;
         month -= 1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate Jan 1st to back to previous year
     } else if ( month == 1 && date == 1 ) {
         date = 31;
         month = 12;
         year -=1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate Mar 1st to back to Feb
     } else if ( month == 3 && date == 1) {
         date = 28;
         month = 2;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
+        // Validate invalid date of Feb
     } else if ( month == 2 && date > 28 ){
         error;
+        // Other days -> true value
     } else {
         date -= 1;
         document.getElementById('result1').innerHTML = 'Next day: ' + date + '/' + month + '/' + year;
@@ -79,19 +101,26 @@ prev_btn.onclick = function () {
     
 var check = document.getElementById('check');
 check.onclick = function() {
+    // Get data
     var month = document.getElementById('month_2').value*1;
     var year = document.getElementById('year_2').value*1;
     var date = 0;
     var error = document.getElementById('result2').innerHTML = 'Ngay khong xac dinh';
 
+    // Handle data
+        // Validate invalid datas
         if ( month <= 0 || year <= 0 || month > 12) {
             error;
+        // Validate months ehich have 31 days
         } else if ( month == 1 || month == 3 || month == 5 || month ==7 || month == 8 || month == 10 || month == 12 ) {
             date = 31;
+        // Validate months which have 30 days
         } else if ( month == 4 || month == 6 || month == 9 || month == 11 ) {
             date = 30;
+        //  Validate days of Feb in even year
         } else if ( ((year % 4 == 0) && (year % 100 != 0)) || ( year % 400 == 0) && (month == 2) ) {
             date = 29;
+        // Days of Feb in odd year
         } else {
             date = 28;
         }
@@ -100,6 +129,7 @@ check.onclick = function() {
 
 var read = document.getElementById('read');
 read.onclick = function () {
+    // Get data
     var n = document.getElementById('number').value*1;
     var tram = Math.floor(n / 100);
     var chuc = Math.floor((n % 100) / 10);
@@ -108,11 +138,14 @@ read.onclick = function () {
     var chuc_read;
     var donvi_read;
 
+    // Handle data
+        // Validate invalid data
     if (n < 100 || n > 999) {
         document.getElementById('result3').innerHTML = 'Nhap lai';
         console.log("hello");
     } else {
 
+        // Pronounce of hundreds row
     switch (tram) {
         case 1:
             tram_read = 'Mot tram '
@@ -143,6 +176,7 @@ read.onclick = function () {
             break;
     }
 
+        // Pronounce of dozens rows
     switch (chuc) {
         case 1:
             chuc_read = 'muoi '
@@ -173,6 +207,7 @@ read.onclick = function () {
             break;
     }
 
+        // Pronounce of units rows
     switch (donvi) {
         case 1:
             donvi_read = 'mot '
@@ -203,7 +238,7 @@ read.onclick = function () {
             break;
     }
 
-
+    // Print out
     document.getElementById('result3').innerHTML = tram_read + chuc_read + donvi_read;
     }
 }
